@@ -5,3 +5,4 @@
 .DS_Store
 .quarto
 datos/*
+!datos/minsal_suicidios.parquet

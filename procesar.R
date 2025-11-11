@@ -160,5 +160,5 @@ egresos_5 <- egresos_4 |>
 #   mutate(across(c(femenino, masculino), ~replace_na(.x, 0)))
 
 # guardar ----
-write_parquet(egresos_5, "datos/suicidios.parquet")
+write_parquet(egresos_5, "datos/minsal_suicidios.parquet")
               
