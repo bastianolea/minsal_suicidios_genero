@@ -3,6 +3,9 @@ library(ggplot2)
 library(ggforce)
 library(ggblend)
 library(scales)
+library(tidyr)
+
+source("funciones.R")
 
 # datos ----
 datos <- arrow::read_parquet("datos/minsal_suicidios.parquet")
@@ -52,100 +55,65 @@ showtext_opts(dpi = 200)
 number_options(big.mark = ".",
                decimal.mark = ",")
 
-# funciones de temas
-escala_genero <- function() {
-  scale_color_manual(values = c("femenino" = color$femenino, 
-                                "masculino" = color$masculino),
-                     aesthetics = c("fill", "color"))
-}
 
-tema_sin_fondo <- function() {
-  theme(panel.grid = element_blank())
-}
-
-tema_sin_ejes <- \() {
-  theme(axis.text = element_blank(),
-        axis.ticks = element_blank(),
-        axis.title = element_blank())
-}
 
 # gráficos ----
 
 ## intentos ----
 conteo |> 
   filter(condicion == "intento") |>
-  mutate(horizontal = case_match(genero,
-                                 "femenino" ~ 1,
-                                 "masculino" ~ max(valor))) |>
-  mutate(vertical = case_match(genero,
-                               "femenino" ~ 1,
-                               "masculino" ~ 1)) |> 
-  ggplot() +
-  geom_circle(
-    aes(x0 = horizontal, y0 = vertical, 
-        r = valor,
-        fill = genero, color = genero),
-    linewidth = .3, alpha = 0.9
-  ) |> blend("multiply") +
-  coord_fixed() +
-  escala_genero() +
-  tema_sin_fondo() +
-  tema_sin_ejes()
+  grafico_circulos_encima()
 
 
 ## consumados ----
 conteo |> 
   filter(condicion == "consumado") |>
-  mutate(horizontal = case_match(genero,
-                                 "femenino" ~ 1,
-                                 "masculino" ~ max(valor))) |>
-  mutate(vertical = case_match(genero,
-                               "femenino" ~ 1,
-                               "masculino" ~ 1)) |> 
-  ggplot() +
-  geom_circle(
-    aes(x0 = horizontal, y0 = vertical, 
-        r = valor,
-        fill = genero, color = genero),
-    linewidth = .3, alpha = 0.9
-  ) |> blend("multiply") +
-  coord_fixed() +
-  escala_genero() +
-  tema_sin_fondo() +
-  tema_sin_ejes()
+  grafico_circulos_encima()
 
 
 ## unidos ----
-conteo |> 
+datos_conteo <- conteo |> 
   mutate(horizontal = case_when(
     condicion == "intento" & genero == "femenino" ~ 1-max(valor)-200,
     condicion == "intento" & genero == "masculino" ~ 1+maximo+200,
     condicion == "consumado" & genero == "femenino" ~ 1-200,
-    condicion == "consumado" & genero == "masculino" ~ 1+valor+10)) |>
+    condicion == "consumado" & genero == "masculino" ~ 1+valor+50)) |>
+  mutate(condicion = forcats::fct_relevel(condicion, "consumado", "intento", )) |>
   mutate(vertical = case_match(
     genero,
     "femenino" ~ 1,
-    "masculino" ~ 1)) |> 
-  ggplot() +
-  # círculos
-  geom_circle(
-    aes(x0 = horizontal, y0 = vertical, r = valor,
-        fill = genero, color = genero),
-    linewidth = .3
-  ) |> blend("multiply") +
-  # líneas horizontales
-  geom_hline(
-    aes(yintercept = valor, color = genero),
-    alpha = 0.6) +
-  geom_hline(
-    aes(yintercept = -valor, color = genero),
-    alpha = 0.6) +
-  # recorte
-  coord_fixed(xlim = c(-4000, 4000),
-              ylim = c(-3000, 3000)) +
-  escala_genero() +
-  tema_sin_fondo() +
-  tema_sin_ejes()
+    "masculino" ~ 1)) 
+
+
+datos_conteo |> 
+  grafico_circulos_unidos()
+
+diferencia_consumados <- datos_conteo |> 
+  filter(condicion == "consumado") |> 
+  select(genero, valor) |> 
+  pivot_wider(names_from = genero, values_from = valor) |> 
+  mutate(diferencia = masculino - femenino) |> 
+  pull(diferencia)
+
+diferencia_intentos <- datos_conteo |> 
+  filter(condicion == "intento") |> 
+  select(genero, valor) |> 
+  pivot_wider(names_from = genero, values_from = valor) |> 
+  mutate(diferencia = femenino - masculino) |> 
+  pull(diferencia)
+
+posicion_intentos <- datos_conteo |> 
+  filter(genero == "femenino",
+         condicion == "intento") |> 
+  pull(horizontal)
+
+# grafico_unidos +
+#   annotate("text", x = I(0), y = I(0.6), 
+#            hjust = 0,
+#            family = "Rubik",
+#            label = "Intentos de suicidio:")
+#   annotate("text", x = 0, y = -diferencia_intentos/2, label = "Diferencia en intentos de suicidio", size = 4, fontface = "bold", color = color$texto)
+
 
 
 ## años ----
@@ -159,33 +127,7 @@ datos_año <- datos |>
                                    "intento" ~ "Intentos de suicidio",
                                    "consumado" ~ "Suicidios consumados"))
 
-
-grafico_lineas <- function(datos) {
-  datos |> 
-    ggplot() +
-    aes(x = año, y = valor, color = genero) +
-    scale_x_continuous(breaks = seq(min(datos$año), max(datos$año), 1),
-                       expand = expansion(c(0.02, 0.1))) +
-    scale_y_continuous(labels = number,
-                       expand = expansion(c(0.07, 0.07))) +
-    # facet_wrap(~condicion, scales = "free", ncol = 1) +
-    geom_smooth(se = FALSE, linetype = "solid", linewidth = 1.5, lineend = "round") +
-    geom_point(data = ~filter(.x, año == max(año)), size = 6, color = color$fondo) +
-    geom_point(data = ~filter(.x, año == max(año)), size = 4) +
-    geom_text(data = ~filter(.x, año == max(año)),
-              aes(label = number(valor)),
-              nudge_x = 0.06,
-              size = 4, fontface = "bold", hjust = 0) |> 
-    ggblend::copy_over(color = color$texto, alpha = 0.4) +
-    theme(legend.position = "none") +
-    escala_genero() +
-    coord_cartesian(clip = "off") +
-    labs(y = "Casos", x = NULL) +
-    theme(axis.text.x = element_text(face = "bold", color = color$texto, size = 11, vjust = 0),
-          axis.title.y = element_text(vjust = 1, margin = margin(r = 4))) +
-    theme(axis.line = element_line(color = color$detalle, lineend = "round", linewidth = 1))
-}
-  
+# intentos
 datos_año |> 
   filter(condicion == "Intentos de suicidio") |>
   grafico_lineas() +
@@ -195,6 +137,7 @@ datos_año |>
             size = 4, fontface = "bold") |> 
   ggblend::copy_over(color = color$texto, alpha = 0.4)
 
+# consumados
 datos_año |> 
   filter(condicion == "Suicidios consumados") |>
   grafico_lineas() +

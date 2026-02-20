@@ -1,5 +1,230 @@
 ---
-title: "suicidios"
-format: html
+format: 
+  html:
+    toc: true
+    toc-title: Índice
+    toc-location: right
+    anchor-sections: false # remove anchor link
+    theme: estilos.scss
+    grid:
+      body-width: 500px
+execute: 
+  echo: false
+  message: false
+  warning: false
+fontfamily: Cabin
+lang: es
+lightbox: true
+knitr:
+  opts_chunk:
+    dev: "ragg_png"
+    dev.args:
+      bg: "transparent"
 ---
+
+```{r datos}
+library(dplyr)
+library(ggplot2)
+library(ggforce)
+library(ggblend)
+library(scales)
+library(tidyr)
+
+source("funciones.R")
+
+# datos ----
+datos <- arrow::read_parquet("datos/minsal_suicidios.parquet")
+
+conteo <- datos |> 
+  summarize(valor = sum(valor), 
+            .by = c(genero, condicion)) |> 
+  mutate(porcentaje = valor / sum(valor),
+         .by = genero) |> 
+  mutate(maximo = max(valor),
+         .by = genero)
+
+```
+
+
+```{r setup}
+# colores ----
+color_base <- "#CA1F7B"
+
+color <- list(femenino = color_base,
+              masculino = color_base |> col_darker(5) |> col_saturate(-30) |> col_shift(-30),
+              fondo = color_base |> col_darker(38) |> col_saturate(-45),
+              texto = color_base |> col_lighter(35) |> col_saturate(-50),
+              detalle = color_base |> col_darker(20) |> col_saturate(-40),
+              tenue = color_base |> col_darker(30) |> col_saturate(-45))
+
+# previsualizar paleta
+# show_col(unlist(color))
+
+
+# temas ----
+
+# tema
+theme_set(
+  theme_minimal(ink = color$texto,
+                paper = color$fondo,
+                base_family = "Rubik") +
+    theme(legend.position = "none") +
+    theme(panel.grid = element_line(linetype = "dashed", color = color$tenue),
+          panel.grid.minor = element_blank())
+)
+
+# tipografía desde google fonts
+library(showtext)
+font_add_google("Cabin", "Cabin")
+font_add_google("Rubik", "Rubik")
+showtext_auto()
+showtext_opts(dpi = 200)
+
+library(gfonts)
+use_font("cabin", "fonts/css/cabin.css")
+
+# opciones de formato de números
+number_options(big.mark = ".",
+               decimal.mark = ",")
+```
+
+## Intentos de suicidio
+
+[femenino]{.fem} y [masculino]{.masc}
+
+```{r suicidio_intentos}
+
+
+conteo |> 
+  filter(condicion == "intento") |>
+  grafico_circulos_encima()
+```
+
+## Suicidios consumados
+
+[femenino]{.fem} y [masculino]{.masc}
+
+
+```{r suicidio_consumados}
+
+
+conteo |> 
+  filter(condicion == "consumado") |>
+  grafico_circulos_encima()
+```
+
+## Comparación
+
+[femenino]{.fem} y [masculino]{.masc}
+
+```{r suidicio_unidos}
+
+datos_conteo <- conteo |> 
+  mutate(horizontal = case_when(
+    condicion == "intento" & genero == "femenino" ~ 1-max(valor)-200,
+    condicion == "intento" & genero == "masculino" ~ 1+maximo+200,
+    condicion == "consumado" & genero == "femenino" ~ 1-200,
+    condicion == "consumado" & genero == "masculino" ~ 1+valor+50)) |>
+  mutate(condicion = forcats::fct_relevel(condicion, "consumado", "intento", )) |>
+  mutate(vertical = case_match(
+    genero,
+    "femenino" ~ 1,
+    "masculino" ~ 1)) 
+
+datos_conteo |> 
+  grafico_circulos_unidos()
+```
+
+```{r}
+diferencia_consumados <- datos_conteo |> 
+  filter(condicion == "consumado") |> 
+  select(genero, valor) |> 
+  pivot_wider(names_from = genero, values_from = valor) |> 
+  mutate(diferencia = masculino - femenino) |> 
+  pull(diferencia)
+
+diferencia_intentos <- datos_conteo |> 
+  filter(condicion == "intento") |> 
+  select(genero, valor) |> 
+  pivot_wider(names_from = genero, values_from = valor) |> 
+  mutate(diferencia = femenino - masculino) |> 
+  pull(diferencia)
+
+posicion_intentos <- datos_conteo |> 
+  filter(genero == "femenino",
+         condicion == "intento") |> 
+  pull(horizontal)
+```
+
+
+:::: {.columns}
+
+::: {.column}
+
+Las [mujeres]{.fem} presentan una mayor cantidad de intentos de suicidio, con `r number(diferencia_intentos)` intentos más que los hombres.
+
+:::
+
+::: {.column style='text-align: right;'}
+
+Los [hombres]{.masc} presentan una mayor cantidad de suicidios consumados, con `r number(diferencia_consumados)` suicidios más que las mujeres.
+
+:::
+
+::::
+
+
+
+## Evolución anual
+
+```{r}
+datos_año <- datos |> 
+  group_by(año, genero, condicion) |> 
+  summarize(valor = sum(valor), .groups = "drop") |> 
+  mutate(condicion = recode_values(condicion,
+                                   "intento" ~ "Intentos de suicidio",
+                                   "consumado" ~ "Suicidios consumados"))
+```
+
+### Intentos de suicidio por año
+
+[femenino]{.fem} y [masculino]{.masc}
+
+```{r suicidio_intentos_años}
+
+# intentos
+datos_año |> 
+  filter(condicion == "Intentos de suicidio") |>
+  grafico_lineas() +
+  geom_text(data = ~filter(.x, año %in% c(2022)),
+            aes(label = number(valor)),
+            nudge_y = 180,
+            size = 4, fontface = "bold") |> 
+  ggblend::copy_over(color = color$texto, alpha = 0.4)
+```
+
+
+### Suicidios consumados por año
+
+#### Mayor cantidad de víctimas [masculinas]{.masc}
+
+[femenino]{.fem} y [masculino]{.masc}
+
+```{r suicidio_consumados_años}
+
+
+# consumados
+datos_año |> 
+  filter(condicion == "Suicidios consumados") |>
+  grafico_lineas() +
+  scale_y_continuous(labels = number,
+                     breaks = pretty_breaks(n = 8),
+                     expand = expansion(c(0.07, 0.07))) +
+  geom_text(data = ~filter(.x, año %in% c(2022, 2023)),
+            aes(label = number(valor)),
+            nudge_y = 1, 
+            size = 4, fontface = "bold") |> 
+  ggblend::copy_over(color = color$texto, alpha = 0.4)
+```
+
 
