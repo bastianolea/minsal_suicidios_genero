@@ -6,3 +6,5 @@
 .quarto
 datos/*
 !datos/minsal_suicidios.parquet
+/.quarto/
+**/*.quarto_ipynb

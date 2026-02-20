@@ -102,7 +102,7 @@ grafico_lineas <- function(datos) {
     geom_point(data = ~filter(.x, año == max(año)), size = 4) +
     geom_text(data = ~filter(.x, año == max(año)),
               aes(label = number(valor)),
-              nudge_x = 0.06,
+              nudge_x = 0.08,
               size = 4, fontface = "bold", hjust = 0) |> 
     ggblend::copy_over(color = color$texto, alpha = 0.4) +
     theme(legend.position = "none") +

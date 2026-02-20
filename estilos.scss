@@ -1,14 +1,34 @@
 /*-- scss:defaults --*/
 $link-color: #CA1F7B;
 $toc-font-size: 12pt;
-$body-bg: #190E14;
+$body-bg: #150E12;
 $body-color: #DAC2CF;
+
+$toc-active-border: #CA1F7B;
+$toc-inactive-border: #582B43;
 
 
 img {
   border-radius: 8px !important; 
 }
 
+hr {
+  color: #582B43 !important;
+  opacity: 1 !important;
+}
+
+h2, h3, h4, h5 {
+  color: #7A3C5D !important;
+}
+
+h2, .h2 {
+border-bottom: 2px solid #582B43 !important;
+padding-bottom: .5rem;
+}
+
+.sidebar nav h2 {
+  border: none !important;
+}
 
 .fem {
   background-color: #CA1F7B;
@@ -35,3 +55,19 @@ img {
   margin-right: 1px;
   white-space: pre;
 }
+
+.quarto-title-meta-heading, .quarto-title-meta-contents {
+  color: #7A3C5D !important;
+}
+
+/*
+.sidebar nav[role=doc-toc] ul>li>a.active, .sidebar nav[role=doc-toc] ul>li>ul>li>a.active {
+border-left: 1px solid #ca1f7b;
+color: #ca1f7b !important;
+}
+
+.sidebar nav[role=doc-toc]>ul a {
+border-left: 1px solid #582B43 !important;
+padding-left: .6rem;
+}
+*/

@@ -22,6 +22,9 @@ codigos_suicidio <- codigos_1 |>
   filter(codigo_subcategoria_letra == "X",
          codigo_subcategoria_numero >= 600 & codigo_subcategoria_numero <= 849)
 
+# codigos_suicidio |> 
+#   distinct(glosa_grupo)
+
 message(nrow(codigos_suicidio), " códigos de suicidio obtenidos")
 
 

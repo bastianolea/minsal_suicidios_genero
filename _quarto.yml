@@ -1,0 +1,45 @@
+project:
+  type: website
+  output-dir: docs
+  
+website:
+  title: "Suicidios en Chile según género"
+  # favicon: donde_estan.jpg
+  open-graph: true
+  twitter-card: true
+  # announcement:
+  #   icon: info-circle
+  #   dismissable: true
+  #   content: "En construcción"
+  #   type: dark
+  #   position: below-navbar
+  navbar:
+    # title: "Suicidios"
+    background: "#150E12"
+    foreground: "#7A3C5D"
+    search: false
+    pinned: false
+    collapse: false
+    tools-collapse: false
+    # left:
+      # - text: "Fuentes"
+      #   href: fuentes.qmd
+      # - text: "Proyecto"
+      #   href: sobre.qmd
+      # - text: "Apps"
+      #   href: https://bastianolea.github.io/shiny_apps/
+      # - text: "Blog"
+      #   href: https://bastianolea.rbind.io/blog/
+      # - text: "Tutoriales"
+      #   href: https://bastianolea.rbind.io/categories/tutoriales/
+      # - text: "Yo"
+      #   href: https://bastianolea.rbind.io/about/
+      # - text: "Contacto"
+      #   href: https://bastianolea.rbind.io/contacto/
+    right:
+      - icon: person-fill
+        href: https://bastianolea.rbind.io
+      - icon: twitter
+        href: https://x.com/bastimapache
+      - icon: envelope-fill
+        href: https://bastianolea.rbind.io/contacto/

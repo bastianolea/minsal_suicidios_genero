@@ -1,0 +1,65 @@
+[
+  {
+    "objectID": "suicidios.html",
+    "href": "suicidios.html",
+    "title": "Suicidios en Chile según género (2020-2024)",
+    "section": "",
+    "text": "En esta plataforma se exploran estadísticas de suicidio en Chile entre 2020 y 2024 con perspectiva de género, visibilizando las diferencias que sufren mujeres y hombres.\nEl Departamento de Estadísticas e Información de Salud (DEIS) del Ministerio de Salud de Chile, a través de su plataforma de datos abiertos, proporciona datos detallados sobre egresos médicos, que corresponden a estadísticas sobre pacientes hospitalizados.\nLos datos de egresos médicos incluyen el diagnóstico de las y los pacientes, y si sobrevivieron o no a sus aflicciones. Según el diagnóstico de cada paciente, es posible identificar casos de lesiones autoinfligidas intencionalmente, interpretables como intentos de suicidio. En base al egreso con o sin vida de los pacientes, se pueden distinguir intentos de suicidio y suicidios consumados."
+  },
+  {
+    "objectID": "suicidios.html#aumento-de-los-suicidios-en-mujeres",
+    "href": "suicidios.html#aumento-de-los-suicidios-en-mujeres",
+    "title": "Suicidios en Chile según género (2020-2024)",
+    "section": "Aumento de los suicidios en mujeres",
+    "text": "Aumento de los suicidios en mujeres\nsuicidio como fenómeno en aumento\naumento porcentual entre 2020 y 2024\nfemenino y masculino"
+  },
+  {
+    "objectID": "suicidios.html#desigualdad-de-género-en-intentos-de-suicidio",
+    "href": "suicidios.html#desigualdad-de-género-en-intentos-de-suicidio",
+    "title": "Suicidios en Chile según género (2020-2024)",
+    "section": "Desigualdad de género en intentos de suicidio",
+    "text": "Desigualdad de género en intentos de suicidio\ndiferencia en víctimas, diferencia porcentual por cada x, y\nfemenino y masculino"
+  },
+  {
+    "objectID": "suicidios.html#mayor-cantidad-de-víctimas-hombres",
+    "href": "suicidios.html#mayor-cantidad-de-víctimas-hombres",
+    "title": "Suicidios en Chile según género (2020-2024)",
+    "section": "Mayor cantidad de víctimas hombres",
+    "text": "Mayor cantidad de víctimas hombres\nsin embargo…\nfemenino y masculino"
+  },
+  {
+    "objectID": "suicidios.html#suicidios-consumados",
+    "href": "suicidios.html#suicidios-consumados",
+    "title": "Suicidios en Chile según género (2020-2024)",
+    "section": "Suicidios consumados",
+    "text": "Suicidios consumados\nlas cifras son similares, pero con mayoría masculina\nfemenino y masculino"
+  },
+  {
+    "objectID": "suicidios.html#comparación",
+    "href": "suicidios.html#comparación",
+    "title": "Suicidios en Chile según género (2020-2024)",
+    "section": "Comparación",
+    "text": "Comparación\nfemenino y masculino\n\n\n\n\n\n\n\n\n\n\n\nLas mujeres presentan una mayor cantidad de intentos de suicidio, con 14 289 intentos más que los hombres.\n\nLos hombres presentan una mayor cantidad de suicidios consumados, con 49 suicidios más que las mujeres.\n\n\n\n\nDesarrollado por Bastián Olea Herrera con el lenguaje de programación R. Código disponible en GitHub."
+  },
+  {
+    "objectID": "pendientes.html",
+    "href": "pendientes.html",
+    "title": "Suicidios en Chile según género",
+    "section": "",
+    "text": "aplicar tema a quarto\nponer gráficos en quarto, quizás con source\naplicar tipografía a quarto\ncrear estilo de géneros para textos y títulos\nredactar y poner avisos de ayuda"
+  },
+  {
+    "objectID": "readme.html",
+    "href": "readme.html",
+    "title": "Casos de intento de suicidio y suicidio consumado en Chile",
+    "section": "",
+    "text": "Procesamiento y análisis de datos de suicidios, obtenidos desde el Ministerio de Salud de Chile, en base al egreso con o sin vida de cada paciente.\n\nEgresos de pacientes por intento de suicidio\nEgresos de pacientes fallecidos por suicidio consumado\n\n\n\nDisponibles en datos/minsal_suicidios.parquet\n\n\n\nMinisterio de Salud, Egresos hospitalarios\nDatos abiertos, Departamento de Estadísticas e Información de Salud: https://deis.minsal.cl/#datosabiertos"
+  },
+  {
+    "objectID": "readme.html#datos",
+    "href": "readme.html#datos",
+    "title": "Casos de intento de suicidio y suicidio consumado en Chile",
+    "section": "",
+    "text": "Disponibles en datos/minsal_suicidios.parquet\n\n\n\nMinisterio de Salud, Egresos hospitalarios\nDatos abiertos, Departamento de Estadísticas e Información de Salud: https://deis.minsal.cl/#datosabiertos"
+  }
+]

@@ -1,20 +1,22 @@
 ---
+title: "Suicidios en Chile según género (2020-2024)"
+author: "Bastián Olea Herrera"
 format: 
   html:
+    theme: estilos.scss
     toc: true
     toc-title: Índice
     toc-location: right
-    anchor-sections: false # remove anchor link
-    theme: estilos.scss
+    anchor-sections: false 
     grid:
       body-width: 500px
+fontfamily: Cabin
+lang: es
 execute: 
   echo: false
   message: false
   warning: false
-fontfamily: Cabin
-lang: es
-lightbox: true
+  cache: true
 knitr:
   opts_chunk:
     dev: "ragg_png"
@@ -22,7 +24,8 @@ knitr:
       bg: "transparent"
 ---
 
-```{r datos}
+```{r paquetes}
+#| cache: false
 library(dplyr)
 library(ggplot2)
 library(ggforce)
@@ -32,37 +35,30 @@ library(tidyr)
 
 source("funciones.R")
 
-# datos ----
-datos <- arrow::read_parquet("datos/minsal_suicidios.parquet")
-
-conteo <- datos |> 
-  summarize(valor = sum(valor), 
-            .by = c(genero, condicion)) |> 
-  mutate(porcentaje = valor / sum(valor),
-         .by = genero) |> 
-  mutate(maximo = max(valor),
-         .by = genero)
-
 ```
 
-
-```{r setup}
-# colores ----
+```{r colores}
+#| output: false
 color_base <- "#CA1F7B"
 
 color <- list(femenino = color_base,
               masculino = color_base |> col_darker(5) |> col_saturate(-30) |> col_shift(-30),
-              fondo = color_base |> col_darker(38) |> col_saturate(-45),
+              # fondo = color_base |> col_darker(38) |> col_saturate(-45),
+              fondo = color_base |> col_darker(39) |> col_saturate(-50),
               texto = color_base |> col_lighter(35) |> col_saturate(-50),
+              titulos = color_base |> col_darker(10) |> col_saturate(-40),
+              # titulos = color_base |> col_lighter(25) |> col_saturate(-40),
               detalle = color_base |> col_darker(20) |> col_saturate(-40),
               tenue = color_base |> col_darker(30) |> col_saturate(-45))
+
+color
 
 # previsualizar paleta
 # show_col(unlist(color))
 
+```
 
-# temas ----
-
+```{r setup}
 # tema
 theme_set(
   theme_minimal(ink = color$texto,
@@ -88,37 +84,23 @@ number_options(big.mark = ".",
                decimal.mark = ",")
 ```
 
-## Intentos de suicidio
 
-[femenino]{.fem} y [masculino]{.masc}
+```{r datos}
+#| cache: true
 
-```{r suicidio_intentos}
+# cargar datos
+datos <- arrow::read_parquet("datos/minsal_suicidios.parquet")
 
+# general
+conteo <- datos |> 
+  summarize(valor = sum(valor), 
+            .by = c(genero, condicion)) |> 
+  mutate(porcentaje = valor / sum(valor),
+         .by = genero) |> 
+  mutate(maximo = max(valor),
+         .by = genero)
 
-conteo |> 
-  filter(condicion == "intento") |>
-  grafico_circulos_encima()
-```
-
-## Suicidios consumados
-
-[femenino]{.fem} y [masculino]{.masc}
-
-
-```{r suicidio_consumados}
-
-
-conteo |> 
-  filter(condicion == "consumado") |>
-  grafico_circulos_encima()
-```
-
-## Comparación
-
-[femenino]{.fem} y [masculino]{.masc}
-
-```{r suidicio_unidos}
-
+# conteo
 datos_conteo <- conteo |> 
   mutate(horizontal = case_when(
     condicion == "intento" & genero == "femenino" ~ 1-max(valor)-200,
@@ -131,11 +113,101 @@ datos_conteo <- conteo |>
     "femenino" ~ 1,
     "masculino" ~ 1)) 
 
+# evolución
+datos_año <- datos |> 
+  group_by(año, genero, condicion) |> 
+  summarize(valor = sum(valor), .groups = "drop") |> 
+  mutate(condicion = recode_values(condicion,
+                                   "intento" ~ "Intentos de suicidio",
+                                   "consumado" ~ "Suicidios consumados"))
+```
+
+En esta plataforma se exploran estadísticas de suicidio en Chile entre 2020 y 2024 **con perspectiva de género**, visibilizando las diferencias que sufren [mujeres]{.fem} y [hombres]{.masc}.
+
+El [Departamento de Estadísticas e Información de Salud](https://deis.minsal.cl) (DEIS) del Ministerio de Salud de Chile, a través de su [plataforma de datos abiertos](https://deis.minsal.cl/#datosabiertos), proporciona datos detallados sobre **egresos médicos**, que corresponden a estadísticas sobre pacientes hospitalizados. 
+
+Los datos de egresos médicos incluyen el diagnóstico de las y los pacientes, y si sobrevivieron o no a sus aflicciones. Según el diagnóstico de cada paciente, es posible identificar casos de **lesiones autoinfligidas intencionalmente**, interpretables como **intentos de suicidio**. En base al egreso _con o sin vida_ de los pacientes, se pueden distinguir intentos de suicidio y suicidios consumados.
+
+
+## Aumento de los suicidios en mujeres
+
+suicidio como fenómeno en aumento
+
+aumento porcentual entre 2020 y 2024
+
+[femenino]{.fem} y [masculino]{.masc}
+
+```{r suicidio_intentos_años}
+datos_año |> 
+  filter(condicion == "Intentos de suicidio") |>
+  grafico_lineas() +
+  geom_text(data = ~filter(.x, año %in% c(2022)),
+            aes(label = number(valor)),
+            nudge_y = 180,
+            size = 4, fontface = "bold") |> 
+  ggblend::copy_over(color = color$texto, alpha = 0.4)
+```
+
+
+## Desigualdad de género en intentos de suicidio
+
+diferencia en víctimas, diferencia porcentual
+por cada x, y
+
+[femenino]{.fem} y [masculino]{.masc}
+
+```{r suicidio_intentos_comparacion}
+conteo |> 
+  filter(condicion == "intento") |>
+  grafico_circulos_encima()
+```
+
+
+## Mayor cantidad de víctimas hombres
+
+sin embargo...
+
+[femenino]{.fem} y [masculino]{.masc}
+
+```{r suicidio_consumados_años}
+
+datos_año |> 
+  filter(condicion == "Suicidios consumados") |>
+  grafico_lineas() +
+  scale_y_continuous(labels = number,
+                     breaks = pretty_breaks(n = 8),
+                     expand = expansion(c(0.07, 0.07))) +
+  geom_text(data = ~filter(.x, año %in% c(2022, 2023)),
+            aes(label = number(valor)),
+            nudge_y = 1, 
+            size = 4, fontface = "bold") |> 
+  ggblend::copy_over(color = color$texto, alpha = 0.4)
+```
+
+
+## Suicidios consumados
+
+las cifras son similares, pero con mayoría masculina
+
+[femenino]{.fem} y [masculino]{.masc}
+
+
+```{r suicidio_consumados_comparacion}
+conteo |> 
+  filter(condicion == "consumado") |>
+  grafico_circulos_encima()
+```
+
+## Comparación
+
+[femenino]{.fem} y [masculino]{.masc}
+
+```{r suidicio_unidos}
 datos_conteo |> 
   grafico_circulos_unidos()
 ```
 
-```{r}
+```{r suidicio_unidos_cifras}
 diferencia_consumados <- datos_conteo |> 
   filter(condicion == "consumado") |> 
   select(genero, valor) |> 
@@ -175,56 +247,11 @@ Los [hombres]{.masc} presentan una mayor cantidad de suicidios consumados, con `
 
 
 
-## Evolución anual
 
-```{r}
-datos_año <- datos |> 
-  group_by(año, genero, condicion) |> 
-  summarize(valor = sum(valor), .groups = "drop") |> 
-  mutate(condicion = recode_values(condicion,
-                                   "intento" ~ "Intentos de suicidio",
-                                   "consumado" ~ "Suicidios consumados"))
-```
+----
 
-### Intentos de suicidio por año
+:::: {style="margin-top:48px; font-size: 80%;"}
 
-[femenino]{.fem} y [masculino]{.masc}
+Desarrollado por [Bastián Olea Herrera](https://bastianolea.rbind.io) con el lenguaje de programación R. Código disponible en [GitHub](https://github.com/bastianolea/minsal_suicidios).
 
-```{r suicidio_intentos_años}
-
-# intentos
-datos_año |> 
-  filter(condicion == "Intentos de suicidio") |>
-  grafico_lineas() +
-  geom_text(data = ~filter(.x, año %in% c(2022)),
-            aes(label = number(valor)),
-            nudge_y = 180,
-            size = 4, fontface = "bold") |> 
-  ggblend::copy_over(color = color$texto, alpha = 0.4)
-```
-
-
-### Suicidios consumados por año
-
-#### Mayor cantidad de víctimas [masculinas]{.masc}
-
-[femenino]{.fem} y [masculino]{.masc}
-
-```{r suicidio_consumados_años}
-
-
-# consumados
-datos_año |> 
-  filter(condicion == "Suicidios consumados") |>
-  grafico_lineas() +
-  scale_y_continuous(labels = number,
-                     breaks = pretty_breaks(n = 8),
-                     expand = expansion(c(0.07, 0.07))) +
-  geom_text(data = ~filter(.x, año %in% c(2022, 2023)),
-            aes(label = number(valor)),
-            nudge_y = 1, 
-            size = 4, fontface = "bold") |> 
-  ggblend::copy_over(color = color$texto, alpha = 0.4)
-```
-
-
+::::
