@@ -1,45 +1,45 @@
 [
   {
-    "objectID": "suicidios.html",
-    "href": "suicidios.html",
+    "objectID": "index.html",
+    "href": "index.html",
     "title": "Suicidios en Chile según género (2020-2024)",
     "section": "",
     "text": "En esta plataforma se exploran estadísticas de suicidio en Chile entre 2020 y 2024 con perspectiva de género, visibilizando las diferencias que sufren mujeres y hombres.\nEl Departamento de Estadísticas e Información de Salud (DEIS) del Ministerio de Salud de Chile, a través de su plataforma de datos abiertos, proporciona datos detallados sobre egresos médicos, que corresponden a estadísticas sobre pacientes hospitalizados.\nLos datos de egresos médicos incluyen el diagnóstico de las y los pacientes, y si sobrevivieron o no a sus aflicciones. Según el diagnóstico de cada paciente, es posible identificar casos de lesiones autoinfligidas intencionalmente, interpretables como intentos de suicidio. En base al egreso con o sin vida de los pacientes, se pueden distinguir intentos de suicidio y suicidios consumados."
   },
   {
-    "objectID": "suicidios.html#aumento-de-los-suicidios-en-mujeres",
-    "href": "suicidios.html#aumento-de-los-suicidios-en-mujeres",
+    "objectID": "index.html#aumento-de-los-suicidios-en-mujeres",
+    "href": "index.html#aumento-de-los-suicidios-en-mujeres",
     "title": "Suicidios en Chile según género (2020-2024)",
     "section": "Aumento de los suicidios en mujeres",
     "text": "Aumento de los suicidios en mujeres\nsuicidio como fenómeno en aumento\naumento porcentual entre 2020 y 2024\nfemenino y masculino"
   },
   {
-    "objectID": "suicidios.html#desigualdad-de-género-en-intentos-de-suicidio",
-    "href": "suicidios.html#desigualdad-de-género-en-intentos-de-suicidio",
+    "objectID": "index.html#desigualdad-de-género-en-intentos-de-suicidio",
+    "href": "index.html#desigualdad-de-género-en-intentos-de-suicidio",
     "title": "Suicidios en Chile según género (2020-2024)",
     "section": "Desigualdad de género en intentos de suicidio",
     "text": "Desigualdad de género en intentos de suicidio\ndiferencia en víctimas, diferencia porcentual por cada x, y\nfemenino y masculino"
   },
   {
-    "objectID": "suicidios.html#mayor-cantidad-de-víctimas-hombres",
-    "href": "suicidios.html#mayor-cantidad-de-víctimas-hombres",
+    "objectID": "index.html#mayor-cantidad-de-víctimas-hombres",
+    "href": "index.html#mayor-cantidad-de-víctimas-hombres",
     "title": "Suicidios en Chile según género (2020-2024)",
     "section": "Mayor cantidad de víctimas hombres",
     "text": "Mayor cantidad de víctimas hombres\nsin embargo…\nfemenino y masculino"
   },
   {
-    "objectID": "suicidios.html#suicidios-consumados",
-    "href": "suicidios.html#suicidios-consumados",
+    "objectID": "index.html#suicidios-consumados",
+    "href": "index.html#suicidios-consumados",
     "title": "Suicidios en Chile según género (2020-2024)",
     "section": "Suicidios consumados",
     "text": "Suicidios consumados\nlas cifras son similares, pero con mayoría masculina\nfemenino y masculino"
   },
   {
-    "objectID": "suicidios.html#comparación",
-    "href": "suicidios.html#comparación",
+    "objectID": "index.html#comparación",
+    "href": "index.html#comparación",
     "title": "Suicidios en Chile según género (2020-2024)",
     "section": "Comparación",
-    "text": "Comparación\nfemenino y masculino\n\n\n\n\n\n\n\n\n\n\n\nLas mujeres presentan una mayor cantidad de intentos de suicidio, con 14 289 intentos más que los hombres.\n\nLos hombres presentan una mayor cantidad de suicidios consumados, con 49 suicidios más que las mujeres.\n\n\n\n\nDesarrollado por Bastián Olea Herrera con el lenguaje de programación R. Código disponible en GitHub."
+    "text": "Comparación\nfemenino y masculino\n\n\n\n\n\n\n\n\n\n\n\nLas mujeres presentan una mayor cantidad de intentos de suicidio, con 14.289 intentos más que los hombres.\n\nLos hombres presentan una mayor cantidad de suicidios consumados, con 49 suicidios más que las mujeres.\n\n\n\n\nDesarrollado por Bastián Olea Herrera con el lenguaje de programación R. Código disponible en GitHub."
   },
   {
     "objectID": "pendientes.html",
