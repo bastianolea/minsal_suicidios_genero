@@ -54,13 +54,20 @@ egresos_2023 <- egresos_2023 |>
 # este archivo da problemas, así que se carga distinto
 egresos_2022 <- read.csv2("datos/EGRE_DATOS_ABIERTOS_2022.csv")
 
+# tibble(egresos_2022) |> glimpse()
+
 egresos_2022 <- egresos_2022 |> 
   clean_names() |> 
+  #   # select(diag1, diag2)
+  #   filter(diag2 %in% codigos_suicidio$codigo_subcategoria)
+  # coalesce(diag2 = c(diag1, diag2))
   select(comuna_residencia, ano_egreso, sexo, condicion_egreso, diag2) |> 
+  tibble() |>
   mutate(comuna_residencia = as.numeric(comuna_residencia),
          ano_egreso = as.numeric(ano_egreso)) |> 
   rename(año = ano_egreso,
          codigo_comuna = comuna_residencia)
+
 
 ## 2021 ----
 egresos_2021 <- read_delim_arrow("datos/EGR_DATOS_ABIERTO_2021.csv",
@@ -74,26 +81,48 @@ egresos_2021 <- egresos_2021 |>
 
 
 
+## 2020 ----
+egresos_2020 <- read_delim_arrow("datos/EGRE_DATOS_ABIERTOS_2020.csv",
+                                 delim = ";")
+
+egresos_2020 <- egresos_2020 |> 
+    clean_names() |> 
+    select(codigo_comuna = comuna_residencia, año = ano_egreso, sexo, condicion_egreso, diag2) |> 
+    mutate(across(c(codigo_comuna, año), as.numeric)) |> 
+    mutate(sexo = as.character(sexo))
+
+
+
 # unir datos ----
 egresos_0 <- bind_rows(egresos_2024,
                        egresos_2023,
                        egresos_2022,
-                       egresos_2021)
+                       egresos_2021,
+                       egresos_2020)
+
+# egresos_0 |> 
+#   filter(!is.na(diag2)) |> 
+#   count(año)
 
 # filtrar suicidios ----
 # priorizar acciones que reduzcan cantidad de filas
 egresos_1 <- egresos_0 |> 
   filter(diag2 %in% codigos_suicidio$codigo_subcategoria)
 
+egresos_1 |> count(año)
+
 # limpiar datos ----
 egresos_1a <- egresos_1 |> 
   # sacar datos perdidos
   filter(!is.na(codigo_comuna)) |> 
-  filter(!is.na(sexo))
+  filter(!is.na(sexo)) |> 
+  filter(!is.na(año))
+
+egresos_1a |> count(año)
 
 egresos_1b <- egresos_1a |> 
   # recodificar sexo
-  mutate(genero = case_match(sexo,
+  mutate(genero = recode_values(sexo,
                              "HOMBRE" ~ "masculino",
                              "MUJER" ~ "femenino",
                              "2" ~ "femenino",
