@@ -149,6 +149,21 @@ egresos_1d <- egresos_1c |>
 
 egresos_2 <- egresos_1d
 
+
+egresos_diagnostico <- egresos_2 |> 
+  left_join(
+    codigos_suicidio |> 
+      distinct(codigo_subcategoria, 
+               glosa_subcategoria,
+               glosa_categoria,
+               glosa_capitulo,
+               glosa_grupo),
+    join_by(diag2 == codigo_subcategoria))
+
+# guardar ----
+write_parquet(egresos_diagnostico,
+              "datos/minsal_suicidios_diagnostico.parquet")
+
 # conteo ----
 # egresos_suicidio |> 
 #   group_by(codigo_comuna, genero) |> 
