@@ -9,7 +9,7 @@ format:
     toc-location: right
     anchor-sections: false 
     grid:
-      body-width: 500px
+      body-width: 600px
 fontfamily: Cabin
 lang: es
 execute: 

@@ -21,21 +21,17 @@ website:
     pinned: false
     collapse: false
     tools-collapse: false
-    # left:
-      # - text: "Fuentes"
-      #   href: fuentes.qmd
-      # - text: "Proyecto"
-      #   href: sobre.qmd
-      # - text: "Apps"
-      #   href: https://bastianolea.github.io/shiny_apps/
-      # - text: "Blog"
-      #   href: https://bastianolea.rbind.io/blog/
-      # - text: "Tutoriales"
-      #   href: https://bastianolea.rbind.io/categories/tutoriales/
-      # - text: "Yo"
-      #   href: https://bastianolea.rbind.io/about/
-      # - text: "Contacto"
-      #   href: https://bastianolea.rbind.io/contacto/
+    left:
+      - text: "Blog"
+        href: https://bastianolea.rbind.io/blog/
+      - text: "Apps"
+        href: https://bastianolea.github.io/shiny_apps/
+      - text: "Datos"
+        href: https://bastianolea.github.io/datos_sociales/
+      - text: "Aprende R"
+        href: https://bastianolea.github.io/aprende_r/
+      - text: "Acerca de"
+        href: https://bastianolea.rbind.io
     right:
       - icon: person-fill
         href: https://bastianolea.rbind.io
