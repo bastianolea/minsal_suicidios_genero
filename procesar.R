@@ -55,7 +55,11 @@ egresos_2023 <- egresos_2023 |>
 #                                  delim = ";",
 #                                  col_select = c(COMUNA_RESIDENCIA, ANO_EGRESO, SEXO, CONDICION_EGRESO, DIAG2))
 # este archivo da problemas, así que se carga distinto
+Sys.sleep(2)
 egresos_2022 <- read.csv2("datos/EGRE_DATOS_ABIERTOS_2022.csv")
+Sys.sleep(2)
+
+# egresos_2022 <- arrow::open_csv_dataset("datos/EGRE_DATOS_ABIERTOS_2022.csv")
 
 # tibble(egresos_2022) |> glimpse()
 
@@ -89,10 +93,40 @@ egresos_2020 <- read_delim_arrow("datos/EGRE_DATOS_ABIERTOS_2020.csv",
                                  delim = ";")
 
 egresos_2020 <- egresos_2020 |> 
-    clean_names() |> 
-    select(codigo_comuna = comuna_residencia, año = ano_egreso, sexo, condicion_egreso, diag2) |> 
-    mutate(across(c(codigo_comuna, año), as.numeric)) |> 
-    mutate(sexo = as.character(sexo))
+  clean_names() |> 
+  select(codigo_comuna = comuna_residencia, año = ano_egreso, sexo, condicion_egreso, diag2) |> 
+  mutate(across(c(codigo_comuna, año), as.numeric)) |> 
+  mutate(sexo = as.character(sexo))
+
+
+## 2019 ----
+egresos_2019 <- read.csv2("datos/EGRE_DATOS_ABIERTOS_2019.csv")
+
+egresos_2019 <- egresos_2019 |> 
+  clean_names() |> 
+  select(codigo_comuna = comuna_residencia, año = ano_egreso, sexo, condicion_egreso, diag2) |> 
+  mutate(across(c(codigo_comuna, año), as.numeric)) |> 
+  mutate(sexo = as.character(sexo))
+
+
+## 2018 ----
+egresos_2018 <- read.csv2("datos/EGRE_DATOS_ABIERTOS_2018.csv")
+
+egresos_2018 <- egresos_2018 |> 
+  clean_names() |> 
+  select(codigo_comuna = comuna_residencia, año = ano_egreso, sexo, condicion_egreso, diag2) |> 
+  mutate(across(c(codigo_comuna, año), as.numeric)) |> 
+  mutate(sexo = as.character(sexo))
+
+
+## 2017 ----
+egresos_2017 <- read.csv2("datos/EGRE_DATOS_ABIERTOS_2017.csv")
+
+egresos_2017 <- egresos_2017 |> 
+  clean_names() |> 
+  select(codigo_comuna, año = ano, sexo, condicion_egreso, diag2) |> 
+  mutate(across(c(codigo_comuna, año), as.numeric)) |> 
+  mutate(sexo = as.character(sexo))
 
 
 
@@ -101,7 +135,10 @@ egresos_0 <- bind_rows(egresos_2024,
                        egresos_2023,
                        egresos_2022,
                        egresos_2021,
-                       egresos_2020)
+                       egresos_2020,
+                       egresos_2019,
+                       egresos_2018,
+                       egresos_2017)
 
 # egresos_0 |> 
 #   filter(!is.na(diag2)) |> 
@@ -126,17 +163,19 @@ egresos_1a |> count(año)
 egresos_1b <- egresos_1a |> 
   # recodificar sexo
   mutate(genero = recode_values(sexo,
-                             "HOMBRE" ~ "masculino",
-                             "MUJER" ~ "femenino",
-                             "2" ~ "femenino",
-                             "1" ~ "masculino"))
+                                "HOMBRE" ~ "masculino",
+                                "MUJER" ~ "femenino",
+                                "2" ~ "femenino",
+                                "1" ~ "masculino"))
+
+egresos_1b |> count(genero)
 
 egresos_1c <- egresos_1b |> 
-  mutate(condicion_egreso = case_match(condicion_egreso,
-                                       1 ~ "intento",
-                                       2 ~ "consumado"))
+  mutate(condicion_egreso = recode_values(condicion_egreso,
+                                          1 ~ "intento",
+                                          2 ~ "consumado"))
 
-egresos_1d <- egresos_1c |> 
+egresos_2 <- egresos_1c |> 
   filter(!is.na(genero)) |> 
   mutate(codigo_comuna = as.numeric(codigo_comuna))
 
@@ -147,17 +186,15 @@ egresos_1d <- egresos_1c |>
 # egresos_suicidio |>
 #   count(año, genero)
 
-egresos_2 <- egresos_1d
-
+codigos_suicidio_2 <- codigos_suicidio |> 
+  select(codigo_subcategoria, 
+         glosa_subcategoria,
+         glosa_categoria,
+         glosa_capitulo,
+         glosa_grupo)
 
 egresos_diagnostico <- egresos_2 |> 
-  left_join(
-    codigos_suicidio |> 
-      distinct(codigo_subcategoria, 
-               glosa_subcategoria,
-               glosa_categoria,
-               glosa_capitulo,
-               glosa_grupo),
+  left_join(codigos_suicidio_2,
     join_by(diag2 == codigo_subcategoria))
 
 # guardar ----
@@ -177,22 +214,6 @@ egresos_3 <- egresos_2 |>
 # comunas ----
 comunas <- readRDS("datos/cut_comunas.rds")
 
-# # pivotar a ancho por género
-# egresos_4 <- egresos_3 |>
-#   pivot_wider(names_from = genero, values_from = valor, values_fill = 0) |>
-#   mutate(variable = paste0("minsal_suicidios_", condicion_egreso)) |> 
-#   select(-condicion_egreso)
-# 
-# # crear dataframe con todas las comunas por cada variable
-# comunas_2 <- bind_rows(comunas |> mutate(variable = "minsal_suicidios_consumado"),
-#                        comunas |> mutate(variable = "minsal_suicidios_intento"))
-# 
-# # agregar datos a las comunas
-# egresos_5 <- comunas_2 |> 
-#   left_join(egresos_4,
-#             join_by(codigo_comuna, variable)) |> 
-#   ordenar_comunas()
-
 egresos_4 <- egresos_3 |> 
   left_join(comunas, join_by(codigo_comuna)) |> 
   filter(!is.na(comuna)) |> 
@@ -208,4 +229,3 @@ egresos_5 <- egresos_4 |>
 
 # guardar ----
 write_parquet(egresos_5, "datos/minsal_suicidios.parquet")
-              

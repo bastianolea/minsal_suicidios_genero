@@ -2,9 +2,9 @@
   {
     "objectID": "index.html",
     "href": "index.html",
-    "title": "Suicidios en Chile según género (2020-2024)",
+    "title": "Suicidios en Chile según género",
     "section": "",
-    "text": "El Departamento de Estadísticas e Información de Salud (DEIS) del Ministerio de Salud de Chile, a través de su plataforma de datos abiertos, proporciona datos detallados sobre egresos médicos, que corresponden a casos de pacientes hospitalizados y sus desenlaces.\nLos datos de egresos médicos incluyen el diagnóstico de las y los pacientes, su género, su ubicación, y si sobrevivieron o no a sus aflicciones. Según el diagnóstico de cada paciente, es posible identificar casos de lesiones autoinfligidas intencionalmente, interpretables como intentos de suicidio. En base al egreso con vida (alta médica) o sin vida (fallecimiento) de los pacientes, se pueden distinguir intentos de suicidio y suicidios consumados.\nEn esta plataforma se exploran estas estadísticas de suicidio en Chile, entre 2020 y 2024, y con perspectiva de género, visibilizando las diferencias que sufren mujeres y hombres."
+    "text": "El Departamento de Estadísticas e Información de Salud (DEIS) del Ministerio de Salud de Chile, a través de su plataforma de datos abiertos, proporciona datos detallados sobre egresos médicos, que corresponden a casos de pacientes hospitalizados y sus desenlaces.\nLos datos de egresos médicos incluyen el diagnóstico de las y los pacientes, su género, su ubicación, y si sobrevivieron o no a sus aflicciones. Según el diagnóstico de cada paciente, es posible identificar casos de lesiones autoinfligidas intencionalmente, interpretables como intentos de suicidio. En base al egreso con vida (alta médica) o sin vida (fallecimiento) de los pacientes, se pueden distinguir intentos de suicidio y suicidios consumados.\nEn esta plataforma se exploran estas estadísticas de suicidio en Chile, entre 2017 y 2024, y con perspectiva de género, visibilizando las diferencias que sufren mujeres y hombres."
   },
   {
     "objectID": "index.html#aumento-de-los-suicidios-en-mujeres",
@@ -46,21 +46,21 @@
     "href": "pendientes.html",
     "title": "Suicidios en Chile según género",
     "section": "",
-    "text": "aplicar tema a quarto\nponer gráficos en quarto, quizás con source\naplicar tipografía a quarto\ncrear estilo de géneros para textos y títulos\nredactar y poner avisos de ayuda"
+    "text": "usar tasa por población en tendencias\najustar gráficos a nuevos datos\nobtener años para párrafos desde los datos (para futuras actualizaciones)\nagregar tabla con datos\naplicar tema a quarto\nponer gráficos en quarto, quizás con source\naplicar tipografía a quarto\ncrear estilo de géneros para textos y títulos\nredactar y poner avisos de ayuda"
   },
   {
     "objectID": "readme.html",
     "href": "readme.html",
     "title": "Casos de intento de suicidio y suicidio consumado en Chile",
     "section": "",
-    "text": "Visualizaciones de datos con perspectiva de género sobre suicidios, obtenidos desde el Ministerio de Salud de Chile, en base al egreso con o sin vida de cada paciente, cruzando los egresos hospitalarios con los códigos de egreso relacionados a lesiones autoinflingidas intencionalmente.\n\nSi estás pasando por un momento difícil, o estás teniendo ideas suicidas, por favor busca ayuda. El suicidio nunca es la solución, y te aseguro que todo va a mejorar.\n\n\nLínea de prevención del suicidio (Chile): llama al *4141 a cualquier hora del día.\nFono de orientación en violencias de género: llama al 1455\n\n\n\nVisualizaciones de datos y estadísticas disponibles en: https://bastianolea.github.io/minsal_suicidios_genero/\n\n\n\nDisponibles en datos/minsal_suicidios.parquet\n\nEgresos de pacientes, por género, por intento de suicidio o suicidio consumado\nEgresos de pacientes, por género, por intento de suicidio o suicidio consumado, y con información de diagnóstico\n\n\n\n\nMinisterio de Salud, Egresos hospitalarios\nDatos abiertos, Departamento de Estadísticas e Información de Salud: https://deis.minsal.cl/#datosabiertos\n\n\nDesarrollado por Bastián Olea Herrera con el lenguaje de programación R. Código disponible en GitHub."
+    "text": "Visualizaciones de datos con perspectiva de género sobre suicidios, obtenidos desde el Ministerio de Salud de Chile, en base al egreso con o sin vida de cada paciente, cruzando los egresos hospitalarios con los códigos de egreso relacionados a lesiones autoinflingidas intencionalmente.\n\nSi estás pasando por un momento difícil, o estás teniendo ideas suicidas, por favor busca ayuda. El suicidio nunca es la solución, y te aseguro que todo va a mejorar.\n\n\nLínea de prevención del suicidio (Chile): llama al *4141 a cualquier hora del día.\nFono de orientación en violencias de género: llama al 1455\n\n\n\nVisualizaciones de datos y estadísticas disponibles en: https://bastianolea.github.io/minsal_suicidios_genero/\n\n\n\nDescarga los datos procesados:\n\nEgresos de pacientes, por género, por intento de suicidio o suicidio consumado\nEgresos de pacientes, por género, por intento de suicidio o suicidio consumado, y con información de diagnóstico\n\n\n\n\nMinisterio de Salud, Egresos hospitalarios\nDatos abiertos, Departamento de Estadísticas e Información de Salud: https://deis.minsal.cl/#datosabiertos\n\n\nDesarrollado por Bastián Olea Herrera con el lenguaje de programación R. Código disponible en GitHub."
   },
   {
     "objectID": "readme.html#datos",
     "href": "readme.html#datos",
     "title": "Casos de intento de suicidio y suicidio consumado en Chile",
     "section": "",
-    "text": "Disponibles en datos/minsal_suicidios.parquet\n\nEgresos de pacientes, por género, por intento de suicidio o suicidio consumado\nEgresos de pacientes, por género, por intento de suicidio o suicidio consumado, y con información de diagnóstico\n\n\n\n\nMinisterio de Salud, Egresos hospitalarios\nDatos abiertos, Departamento de Estadísticas e Información de Salud: https://deis.minsal.cl/#datosabiertos\n\n\nDesarrollado por Bastián Olea Herrera con el lenguaje de programación R. Código disponible en GitHub."
+    "text": "Descarga los datos procesados:\n\nEgresos de pacientes, por género, por intento de suicidio o suicidio consumado\nEgresos de pacientes, por género, por intento de suicidio o suicidio consumado, y con información de diagnóstico\n\n\n\n\nMinisterio de Salud, Egresos hospitalarios\nDatos abiertos, Departamento de Estadísticas e Información de Salud: https://deis.minsal.cl/#datosabiertos\n\n\nDesarrollado por Bastián Olea Herrera con el lenguaje de programación R. Código disponible en GitHub."
   },
   {
     "objectID": "index.html#causas",
@@ -79,30 +79,30 @@
   {
     "objectID": "index.html#aumento-de-los-intentos-de-suicidio-en-mujeres",
     "href": "index.html#aumento-de-los-intentos-de-suicidio-en-mujeres",
-    "title": "Suicidios en Chile según género (2020-2024)",
+    "title": "Suicidios en Chile según género (2018–2024)",
     "section": "Aumento de los intentos de suicidio en mujeres",
-    "text": "Aumento de los intentos de suicidio en mujeres\nEn los últimos 6 años, y según los datos de egresos médicos, las estadísticas de suicidio en Chile han ido en aumento.\nEntre los años 2020 y 2024, los intentos de suicidio en mujeres han aumentado en un 115%, pasando de 2.560 intentos en 2020 a 5.502 intentos en 2024, mientras que en hombres el aumento ha sido de 90%.\n\n\n\n\n\n\n\n\n\nEntre los años 2021 y 2022, destaca un aumento en los intentos de suicidio en mujeres de un 36%.\nSi consideramos la cantidad total de casos entre 2020 y 2024, vemos que las mujeres presentan una cantidad mucho mayor de intentos de suicidio que los hombres: 22.200 casos, que equivalen a una cantidad 2,8 veces mayor que los casos en hombres (7.911)."
+    "text": "Aumento de los intentos de suicidio en mujeres\nEn los últimos 6 años, y según los datos de egresos médicos, las estadísticas de suicidio en Chile han ido en aumento.\nEntre los años 2018 y 2024, los intentos de suicidio en mujeres han aumentado en un 99%, pasando de 2.762 intentos en 2020 a 5.502 intentos en 2024, mientras que en hombres el aumento ha sido de 80%.\n\n\n\n\n\n\n\n\n\nEntre los años 2021 y 2022, destaca un aumento en los intentos de suicidio en mujeres de un 36%.\nSi consideramos la cantidad total de casos entre 2018 y 2024, vemos que las mujeres presentan una cantidad mucho mayor de intentos de suicidio que los hombres: 27.973 casos, que equivalen a una cantidad 2,7 veces mayor que los casos en hombres (10.304)."
   },
   {
     "objectID": "index.html#mayor-cantidad-de-víctimas-fatales-en-hombres",
     "href": "index.html#mayor-cantidad-de-víctimas-fatales-en-hombres",
-    "title": "Suicidios en Chile según género (2020-2024)",
+    "title": "Suicidios en Chile según género",
     "section": "Mayor cantidad de víctimas fatales en hombres",
-    "text": "Mayor cantidad de víctimas fatales en hombres\nSin embargo, cuando analizamos las cifras de víctimas de suicidios consumados (con consecuencias letales) entre 2020 y 2024, se presenta una mayoría de casos de hombres.\n\n\n\n\n\n\n\n\n\nSe evidencia un total de 178 víctimas fatales en hombres, que significa una diferencia de 49 muertes sobre la cantidad de mujeres (129).\nLa tendencia de los suicidios también presenta un alza a través de los años. Entre 2020 y 2024, los suicidios consumados han aumentado un 58% en hombres, mientras que en mujeres solamente un 5%.\n\n\n\n\n\n\n\n\n\nEntre 2021 y 2022 ambos géneros presentaron fuertes aumentos en la cantidad de víctimas, de 37% y 38% en hombres y mujeres respectivamente."
+    "text": "Mayor cantidad de víctimas fatales en hombres\nSin embargo, cuando analizamos las cifras de víctimas de suicidios consumados; es decir, intentos de suicidio con consecuencias letales entre 2017 y 2024, se presenta una mayoría de casos de hombres.\n\n\n\n\n\n\n\n\n\nSe evidencia un total de 281 víctimas fatales en hombres, que significa una diferencia de 99 muertes por sobre la cantidad de víctimas mujeres (182)."
   },
   {
     "objectID": "index.html#diferencias-en-perspectiva",
     "href": "index.html#diferencias-en-perspectiva",
-    "title": "Suicidios en Chile según género (2020-2024)",
+    "title": "Suicidios en Chile según género",
     "section": "Diferencias en perspectiva",
-    "text": "Diferencias en perspectiva\nComo podemos ver, el fenómeno presenta disparidades entre géneros complejas: las mujeres recurren al intento de suicidio en mucha mayor cantidad que los hombres, pero los hombres concretan el suicidio en mayor cantidad.\nEsta gráfica enfrenta las realidades de mujeres (a la izquierda) y hombres (a la derecha), midiendo la cantidad de víctimas en círculos, donde los círculos centrales representan las víctimas fatales.\n\n\n\n\n\n\n\n\n\n\n\nPor un lado, las mujeres presentan una mayor cantidad de intentos de suicidio entre 2020 y 2024, con 14.289 intentos más que los hombres.\n\nPor otro lado, los hombres presentan una mayor cantidad de suicidios consumados entre 2020 y 2024, con 49 suicidios más que las mujeres."
+    "text": "Diferencias en perspectiva\nComo podemos ver, el fenómeno presenta disparidades entre géneros complejas: las mujeres recurren al intento de suicidio en mucha mayor cantidad que los hombres, pero los hombres concretan el suicidio en mayor cantidad.\nEsta gráfica enfrenta las realidades de mujeres (a la izquierda) y hombres (a la derecha), midiendo la cantidad de víctimas en círculos, donde los círculos centrales representan las víctimas fatales.\n\n\n\n\n\n\n\n\n\n\n\nPor un lado, las mujeres presentan una mayor cantidad de intentos de suicidio entre 2017 y 2024, con 19.245 intentos más que los hombres.\n\nPor otro lado, los hombres presentan una mayor cantidad de suicidios consumados entre 2017 y 2024, con 99 suicidios más que las mujeres."
   },
   {
     "objectID": "index.html#métodos-según-género",
     "href": "index.html#métodos-según-género",
-    "title": "Suicidios en Chile según género (2020-2024)",
+    "title": "Suicidios en Chile según género",
     "section": "Métodos según género",
-    "text": "Métodos según género\nLas diferencias de género prevalecen también en los métodos de las lesiones autoinflingidas intencionalmente. Este gráfico muestra la cantidad de casos según el tipo de lesiones diagnosticado.\nLos suicidios por ahorcamiento, armas de fuego, y objetos cortantes son más prevalentes en hombres, mientras que el uso de drogas o medicamentos de distintos tipos son más frecuentes en mujeres.\n\n\n\n\n\n\n\n\n\nEl tipo de lesión intencional más frecuente entre ambos géneros es el ahorcamiento, estrangulamiento o sofocación en hombres.\n\nEl fenómeno del suicidio es oscuro y complejo. Estas diferencias estadísticas expresan una realidad trágica, sufrida de maneras diferentes por hombres y mujeres.\n\n\nSi estás pasando por un momento difícil, o estás teniendo ideas suicidas, por favor busca ayuda. El suicidio nunca es la solución, y te aseguro que todo va a mejorar.\n\nLínea de prevención del suicidio (Chile): llama al *4141 a cualquier hora del día.\nFono de orientación en violencias de género: llama al 1455\n\n\n\nDesarrollado por Bastián Olea Herrera con el lenguaje de programación R. Código disponible en GitHub."
+    "text": "Métodos según género\nLas diferencias de género prevalecen también en los métodos de las lesiones autoinflingidas intencionalmente. Este gráfico muestra la cantidad de casos según el tipo de lesiones diagnosticado.\nLos suicidios por ahorcamiento, armas de fuego, y objetos cortantes son más prevalentes en hombres, mientras que el uso de drogas o medicamentos de distintos tipos son más frecuentes en mujeres.\n\n\n\n\n\n\n\n\n\nEl tipo de lesión intencional más frecuente entre ambos géneros es el ahorcamiento, estrangulamiento o sofocación en hombres.\n\nEl fenómeno del suicidio es oscuro y complejo. Estas diferencias estadísticas expresan una realidad trágica, sufrida de maneras diferentes por hombres y mujeres.\nEstas visualizaciones son sólo un intento por compartir datos sobre este fenómeno, con el fin de propiciar la reflexión sobre salud mental con perspectiva de género.\n\n\nSi estás pasando por un momento difícil, o estás teniendo ideas suicidas, por favor busca ayuda. El suicidio nunca es la solución, y te aseguro que todo va a mejorar.\n\nLínea de prevención del suicidio (Chile): llama al *4141 a cualquier hora del día.\nFono de orientación en violencias de género: llama al 1455\n\n\n\nDesarrollado por Bastián Olea Herrera con el lenguaje de programación R. Código disponible en GitHub."
   },
   {
     "objectID": "readme.html#aplicación",
@@ -110,5 +110,19 @@
     "title": "Casos de intento de suicidio y suicidio consumado en Chile",
     "section": "",
     "text": "Visualizaciones de datos y estadísticas disponibles en: https://bastianolea.github.io/minsal_suicidios_genero/"
+  },
+  {
+    "objectID": "index.html#tendencia-en-los-intentos-de-suicidio",
+    "href": "index.html#tendencia-en-los-intentos-de-suicidio",
+    "title": "Suicidios en Chile según género",
+    "section": "Tendencia en los intentos de suicidio",
+    "text": "Tendencia en los intentos de suicidio\nEn los últimos 6 años, y según los datos de egresos médicos, las estadísticas de intentos de suicidio en Chile han ido en aumento.\nEntre los años 2017 y 2024, los intentos de suicidio en mujeres han aumentado en un 115%, pasando de 2.560 intentos en 2017 a 5.502 intentos en 2024, mientras que en hombres el aumento ha sido de 109%.\n\n\n\n\n\n\n\n\n\nEntre los años 2021 y 2022, durante la pandemia, destaca un aumento en los intentos de suicidio en mujeres de un 36%.\nSi consideramos la cantidad total de casos entre 2017 y 2024, vemos que las mujeres presentan una cantidad mucho mayor de intentos de suicidio que los hombres: 30.533 casos, que equivalen a una cantidad 2,7 veces mayor que los casos en hombres (11.288).\n\n\n\n\n\n\n\n\n\nEl gráfico anterior simboliza la diferencia entre ambas cifras mediante el diámetro de los círculos."
+  },
+  {
+    "objectID": "index.html#tendencia-en-suicidios-consumados",
+    "href": "index.html#tendencia-en-suicidios-consumados",
+    "title": "Suicidios en Chile según género",
+    "section": "Tendencia en suicidios consumados",
+    "text": "Tendencia en suicidios consumados\nLa tendencia de los suicidios consumados es distinta a los intentos de suicidio. Comparando 2017 y 2024, los suicidios consumados han disminuido un -16% en hombres, mientras que en mujeres han aumentado un 29%.\n\n\n\n\n\n\n\n\n\nComo se aprecia en el gráfico anterior, estas tendencias se ven influenciadas por la pandemia del Covid-19, que alteró los comportamientos sociales y tuvo un efecto en la salud mental de las personas.\nDurante la pandemia, entre 2021 y 2022 ambos géneros presentaron fuertes aumentos en la cantidad de víctimas, de 37% y 38% en hombres y mujeres respectivamente.\nPero después de 2022, posterior al periodo de pandemia, se observa una tendencia a la disminución de los suicidios en ambos géneros: el suicidio entre 2022 y 2024 se reduce en un -26% entre los hombres y en un -64% entre mujeres.."
   }
 ]

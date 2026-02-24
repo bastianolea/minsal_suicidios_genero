@@ -87,11 +87,11 @@ grafico_circulos_unidos <- function(datos) {
       fill = NA, linewidth = 0.3
     ) |> blend(alpha = 0.4) +
     # recorte
-    coord_fixed(xlim = c(-4400, 4000),
+    coord_fixed(xlim = c(-4200, 4000),
                 ylim = c(-3000, 3000),
                 expand = FALSE) +
     escala_genero() +
-    scale_alpha_manual(values = c("intento" = 0.5, "consumado" = 1)) +
+    scale_alpha_manual(values = c("intento" = 0.4, "consumado" = 1)) +
     tema_sin_fondo() +
     tema_sin_ejes()
 }
@@ -105,13 +105,27 @@ grafico_lineas <- function(datos) {
                        expand = expansion(c(0.02, 0.1))) +
     scale_y_continuous(labels = number,
                        expand = expansion(c(0.07, 0.07))) +
-    # facet_wrap(~condicion, scales = "free", ncol = 1) +
+    # fondo indicando periodo de pandemia
+    annotate(geom = "rect",
+             xmin = 2020.2, xmax = 2021.8, ymin = -Inf, ymax = Inf,
+             fill = color$detalle, alpha = 0.3,
+             alpha = 0.1) +
+    annotate(geom = "text", x = 2021, y = I(.95), label = "Pandemia",
+             color = color$titulos, size = 3.5, alpha = 1) +
+    geom_text(data = ~filter(.x, año %in% c(2020)),
+              aes(label = number(valor),
+                  nudge_y = if_else(genero == "femenino", -190, 170)),
+              size = 4, fontface = "bold") |> 
+    ggblend::copy_over(color = color$texto, alpha = 0.4) +
+    # líneas
     geom_smooth(se = FALSE, linetype = "solid", linewidth = 1.5, lineend = "round") +
+    # puntos
     geom_point(data = ~filter(.x, año == max(año)), size = 6, color = color$fondo) +
     geom_point(data = ~filter(.x, año == max(año)), size = 4) +
+    # texto final
     geom_text(data = ~filter(.x, año == max(año)),
               aes(label = number(valor)),
-              nudge_x = 0.08,
+              nudge_x = 0.13,
               size = 4, fontface = "bold", hjust = 0) |> 
     ggblend::copy_over(color = color$texto, alpha = 0.4) +
     theme(legend.position = "none") +
@@ -131,7 +145,9 @@ limpiar_causas <- function(datos) {
            glosa = str_remove_all(glosa, ", y (los|las) no especificad(a|o)s|, no clasificadas en otra parte"),
            glosa = str_remove_all(glosa, "antiepilépticas,|, antiparkinsonianas"),
            glosa = str_remove_all(glosa, "^otr(a|o)s"),
+           glosa = str_remove_all(glosa, ", no clasificados en otra parte$"),
            glosa = str_replace(glosa, "otras armas", "armas"),
+           glosa = str_replace(glosa, "\\[alucinógenos\\]", "(alucinógenos)"),
            glosa = str_replace(glosa, "medios especificados", "medios"),
            glosa = str_squish(glosa) |> str_trim()) |> 
     mutate(glosa = str_to_sentence(glosa))

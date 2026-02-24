@@ -1,5 +1,7 @@
 
-- [ ] obtener años para párrafos desde los datos (para futuras actualizaciones)
+- [ ] usar tasa por población en tendencias
+- [ ] ajustar gráficos a nuevos datos
+- [x] obtener años para párrafos desde los datos (para futuras actualizaciones)
 - [ ] agregar tabla con datos
 - [x] aplicar tema a quarto
 - [x] poner gráficos en quarto, quizás con source
